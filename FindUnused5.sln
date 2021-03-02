@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindUnused5", "FindUnused5\FindUnused5.csproj", "{54F20106-8169-46E1-B205-5565F553F5FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54F20106-8169-46E1-B205-5565F553F5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F20106-8169-46E1-B205-5565F553F5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F20106-8169-46E1-B205-5565F553F5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F20106-8169-46E1-B205-5565F553F5FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DACA6C34-D78F-4A30-A69B-B3ECD90A94EF}
+	EndGlobalSection
+EndGlobal
