@@ -18,7 +18,6 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -26,15 +25,14 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-using System.Resources;
-
 namespace FindUnused
 {
     class Program
     {
         public static List<Key> KeyList = new List<Key>();
 
-        public static string root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+        public static string root =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
             "/Visual Studio 2019/Projects/CableCalc5/CableCalc";
 
         public static string keyFile = root + "/Properties/Resources.resx";
@@ -64,16 +62,12 @@ namespace FindUnused
                 sb.Append(d.ToString());
                 Debug.WriteLine(d.ToString());
             }
+
             File.WriteAllText(root + "/Occurences.txt", sb.ToString());
         }
 
         static void ReadKeys(string resource)
         {
-            var rr = new ResourceReader(keyFile);
-            IDictionaryEnumerator dict = rr.GetEnumerator();
-            while (dict.MoveNext())
-                Debug.WriteLine("{0}: {1}", dict.Key, dict.Value);   
-
             var xmlStr = File.ReadAllText(resource);
 
             var str = XElement.Parse(xmlStr);
