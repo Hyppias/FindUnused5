@@ -18,12 +18,16 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+
+using System.Resources;
+using System.Resources.Extensions;
 
 namespace FindUnused
 {
@@ -66,6 +70,11 @@ namespace FindUnused
 
         static void ReadKeys(string resource)
         {
+            var rr = new ResourceReader(keyFile);
+            IDictionaryEnumerator dict = rr.GetEnumerator();
+            while (dict.MoveNext())
+                Debug.WriteLine("{0}: {1}", dict.Key, dict.Value);   
+
             var xmlStr = File.ReadAllText(resource);
 
             var str = XElement.Parse(xmlStr);
