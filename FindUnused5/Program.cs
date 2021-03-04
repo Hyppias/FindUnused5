@@ -60,20 +60,28 @@ namespace FindUnused
 
             KeyList.Sort();
             var sb = new StringBuilder();
+            int zeroes = 0;
             foreach (var d in KeyList)
             {
                 sb.Append(d.ToString());
                 Debug.WriteLine(d.ToString());
+                if (d.Occurrences == 0)
+                {
+                    zeroes++;
+                }
             }
+
+            sb.AppendLine($"\n{zeroes} unused key");
             File.WriteAllText(root + "/Occurences.txt", sb.ToString());
         }
 
         static void ReadKeys(string resource)
         {
-            var rr = new ResourceReader(keyFile);
-            IDictionaryEnumerator dict = rr.GetEnumerator();
-            while (dict.MoveNext())
-                Debug.WriteLine("{0}: {1}", dict.Key, dict.Value);   
+            //var rm = new ResourceManager("CableCalc.Resources")
+            //var rr = new ResourceReader(keyFile);
+            //IDictionaryEnumerator dict = rr.GetEnumerator();
+            //while (dict.MoveNext())
+            //    Debug.WriteLine("{0}: {1}", dict.Key, dict.Value);   
 
             var xmlStr = File.ReadAllText(resource);
 
@@ -92,8 +100,8 @@ namespace FindUnused
             // Loop through all instances of the string 'text'.
             int count = 0;
             int i = 0;
-
-            while ((i = text.IndexOf(pattern, i, StringComparison.CurrentCulture)) != -1)
+            var s = text.TrimStart().TrimEnd();
+            while (s.IndexOf("//",i) == -1 &&  (i = s.IndexOf(pattern, i, StringComparison.CurrentCulture)) != -1)
             {
                 i += pattern.Length;
                 count++;
@@ -142,17 +150,22 @@ namespace FindUnused
             {
                 foreach (var fi in files)
                 {
-                    string content = File.ReadAllText(fi);
-                    foreach (var k in KeyList)
+                    var lines = File.ReadLines(fi);
+
+                    foreach(var l in lines)
                     {
-                        int n = CountStringOccurrences(content,
-                            addQuotes ? $"\"{k.Name}\"" : k.Name);
-                        if (n > 0)
+                        foreach (var k in KeyList)
                         {
-                            k.Occurrences += n;
-                            k.FileNames.Add(new Uri(fi));
+                            int n = CountStringOccurrences(l, addQuotes ? $"\"{k.Name}\"" : k.Name);
+                            if (n > 0)
+                            {
+                                k.Occurrences += n;
+                                k.FileNames.Add(new Uri(fi));
+                            }
                         }
                     }
+                    
+                   
                 }
 
                 // Now find all the subdirectories under this directory.
