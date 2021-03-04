@@ -55,12 +55,15 @@ namespace FindUnused
             WalkDirectoryTree(new DirectoryInfo(root), ".xaml");
 
             KeyList.Sort();
+            
             var sb = new StringBuilder();
             foreach (var d in KeyList)
             {
                 sb.Append(d.ToString());
                 Debug.WriteLine(d.ToString());
             }
+
+            sb.AppendLine($"{KeyList.Where(k => k.Occurrences == 0).Count()} unused keys");
             File.WriteAllText(root + "/Occurences.txt", sb.ToString());
         }
 
