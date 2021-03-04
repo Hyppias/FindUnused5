@@ -27,7 +27,6 @@ using System.Text;
 using System.Xml.Linq;
 
 using System.Resources;
-using System.Resources.Extensions;
 
 namespace FindUnused
 {
